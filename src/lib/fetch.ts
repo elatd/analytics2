@@ -23,7 +23,17 @@ export async function request(
     },
     body,
   }).then(async res => {
-    const data = await res.json();
+    let data: any = undefined;
+
+    const text = await res.text();
+
+    if (text && text.length > 0) {
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = text;
+      }
+    }
 
     return {
       ok: res.ok,
