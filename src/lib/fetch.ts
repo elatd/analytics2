@@ -23,7 +23,12 @@ export async function request(
     },
     body,
   }).then(async res => {
-    const data = await res.json();
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      data = null;
+    }
 
     return {
       ok: res.ok,
