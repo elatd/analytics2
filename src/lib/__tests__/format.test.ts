@@ -1,4 +1,5 @@
 import * as format from '../format';
+// eslint-disable-next-line import/no-unresolved
 import { expect } from '@jest/globals';
 
 test('parseTime', () => {
