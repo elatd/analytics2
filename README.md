@@ -61,6 +61,14 @@ postgresql://username:mypassword@localhost:5432/mydb
 mysql://username:mypassword@localhost:3306/mydb
 ```
 
+### Initialize the Database
+
+```bash
+npm run init-db
+```
+
+_This will copy the database schema and apply all migrations, creating the required tables and the default `admin`/`umami` user._
+
 ### Build the Application
 
 ```bash

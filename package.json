@@ -10,7 +10,8 @@
     "url": "https://github.com/umami-software/umami.git"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm-run-all init-db dev:next",
+    "dev:next": "next dev",
     "dev-turbo": "next dev -p 3000 --turbopack",
     "build": "npm-run-all check-env build-db check-db build-tracker build-geo build-app",
     "start": "next start",
@@ -30,6 +31,7 @@
     "set-routes-manifest": "node scripts/set-routes-manifest.js",
     "update-tracker": "node scripts/update-tracker.js",
     "update-db": "prisma migrate deploy",
+    "init-db": "npm-run-all copy-db-files update-db",
     "check-db": "node scripts/check-db.js",
     "check-env": "node scripts/check-env.js",
     "copy-db-files": "node scripts/copy-db-files.js",
