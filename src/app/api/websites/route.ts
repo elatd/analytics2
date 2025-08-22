@@ -4,7 +4,6 @@ import { json, unauthorized } from '@/lib/response';
 import { uuid } from '@/lib/crypto';
 import { parseRequest } from '@/lib/request';
 import { createWebsite, getUserWebsites } from '@/queries';
-import { validate as uuidValidate } from 'uuid';
 import { pagingParams } from '@/lib/schema';
 
 export async function GET(request: Request) {
@@ -44,18 +43,15 @@ export async function POST(request: Request) {
 
   const data: any = {
     id: id ?? uuid(),
+    createdBy: auth.user.id,
     name,
     domain,
     shareId,
     teamId,
   };
 
-  if (uuidValidate(auth.user.id)) {
-    data.createdBy = auth.user.id;
-
-    if (!teamId) {
-      data.userId = auth.user.id;
-    }
+  if (!teamId) {
+    data.userId = auth.user.id;
   }
 
   const website = await createWebsite(data);
