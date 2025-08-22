@@ -1,5 +1,4 @@
 import * as detect from '../detect';
-// eslint-disable-next-line import/no-unresolved
 import { expect } from '@jest/globals';
 
 const IP = '127.0.0.1';
